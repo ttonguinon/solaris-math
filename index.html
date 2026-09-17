@@ -260,6 +260,16 @@
   .modal-fondo{position:fixed;inset:0;z-index:1002;background:rgba(11,42,91,.55);display:grid;place-items:center;padding:12px}
   .modal-caja{background:#1F2A44;color:#fff;border-radius:20px;padding:14px;width:min(400px,100%);max-height:calc(100% - 12px);overflow:auto;box-shadow:0 12px 40px rgba(0,0,0,.35)}
   .comp-texto{text-align:center;margin:4px 0 8px}
+  .pres-opciones{display:grid;gap:10px;margin:12px 0 4px}
+  .pres-op{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;text-decoration:none;color:#fff;
+    background:linear-gradient(90deg,#6A4C93,#A855F7);box-shadow:0 4px 0 #43356B;transition:transform .12s}
+  .pres-op.en{background:linear-gradient(90deg,#9D174D,#F472B6);box-shadow:0 4px 0 #6B0F35}
+  .pres-op:hover{transform:translateY(-2px)}
+  .pres-op:active{transform:translateY(2px);box-shadow:none}
+  .pres-op strong{display:block;font-size:1.05rem}
+  .pres-op small{display:block;opacity:.85;font-size:.82rem;margin-top:2px}
+  .pres-idioma{flex:none;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#1F2A44;font-family:'Baloo 2';font-weight:800;font-size:1.15rem}
+  .herr.solo-inicio.oculto{display:none}
   .comp-qr{background:#fff;border-radius:16px;padding:14px;width:max-content;margin:0 auto;min-width:120px;min-height:120px;display:grid;place-items:center}
   .comp-qr img,.comp-qr canvas{display:block;width:220px;height:220px}
   .comp-url{text-align:center;font-size:.85rem;word-break:break-all;opacity:.85;margin:8px 0}
@@ -420,6 +430,7 @@
     <button type="button" class="herr" id="abrirPizarra" title="Pizarra para hacer cálculos a mano"><span aria-hidden="true">✏️</span> Pizarra</button>
     <button type="button" class="herr" id="abrirCalc" title="Calculadora científica"><span aria-hidden="true">🧮</span> Calculadora</button>
     <button type="button" class="herr" id="abrirCompartir" title="Compartir o instalar la app"><span aria-hidden="true">📲</span> Compartir</button>
+    <button type="button" class="herr solo-inicio" id="abrirPres" title="Ver las presentaciones en español e inglés"><span aria-hidden="true">🎬</span> Presentación</button>
   </div>
   <p class="nombre-app" id="nombreApp">Solaris Math</p>
 
@@ -544,6 +555,25 @@
     </div>
   </section>
   <div id="guiaTaller" aria-hidden="true"></div>
+</div>
+
+<!-- Presentaciones -->
+<div class="modal-fondo oculto" id="presModal" role="dialog" aria-label="Presentaciones de Solaris Math">
+  <div class="modal-caja">
+    <div class="calc-cab"><strong>🎬 Presentaciones</strong><button type="button" id="presCerrar" aria-label="Cerrar">✕</button></div>
+    <p class="comp-texto">Un recorrido animado de 2 minutos por Solaris Math, con narración y música.</p>
+    <div class="pres-opciones">
+      <a class="pres-op" href="presentacion.html" target="_blank" rel="noopener">
+        <span class="pres-idioma">ES</span>
+        <span><strong>Presentación en español</strong><small>2 minutos · voz en español</small></span>
+      </a>
+      <a class="pres-op en" href="presentation.html" target="_blank" rel="noopener">
+        <span class="pres-idioma">EN</span>
+        <span><strong>Presentation in English</strong><small>2 minutes · English narration</small></span>
+      </a>
+    </div>
+    <p class="comp-ayuda">Se abre en una pestaña nueva. Sube el volumen para escuchar la narración.</p>
+  </div>
 </div>
 
 <!-- Compartir e instalar -->
@@ -4251,6 +4281,17 @@ const Reloj = {
   }
 };
 
+
+/* ================= Presentaciones ================= */
+const Presentaciones = {
+  iniciar(){
+    $('abrirPres').onclick = () => { $('presModal').classList.remove('oculto'); Sonido.play('tocar'); };
+    $('presCerrar').onclick = () => this.cerrar();
+    $('presModal').addEventListener('click', e => { if(e.target.id === 'presModal') this.cerrar(); });
+    document.querySelectorAll('#presModal .pres-op').forEach(a => a.addEventListener('click', () => setTimeout(() => this.cerrar(), 300)));
+  },
+  cerrar(){ $('presModal').classList.add('oculto'); }
+};
 /* ================= Ruta escalonada ================= */
 const ORDEN = Object.keys(TEMAS).sort((a, b) => TEMAS[a].g - TEMAS[b].g || TEMAS[a].pos - TEMAS[b].pos);
 const COLORES = {1:'#E63946',2:'#F28C1B',3:'#E0A800',4:'#6FA80F',5:'#2A9D8F',6:'#00A6ED',7:'#1E5BB8',8:'#6A4C93',9:'#C0399F',10:'#FF6F59',11:'#0B3D91'};
@@ -4712,6 +4753,7 @@ function ir(id){
   cab.classList.toggle('oculto', id==='diploma');
   $('herramientas').classList.toggle('oculto', id==='diploma');
   $('herramientas').classList.toggle('mini', !['inicio','registro'].includes(id));
+  $('abrirPres').classList.toggle('oculto', !['inicio','registro'].includes(id));
   $('nombreApp').classList.toggle('oculto', !['inicio','registro'].includes(id));
   window.scrollTo(0,0);
   if(id==='inicio') pintarInicio();
@@ -4996,11 +5038,12 @@ $('btnSonido').onclick = async () => {
 };
 Pizarra.iniciar();
 Compartir.iniciar();
+Presentaciones.iniciar();
 Reloj.iniciar();
 Calculadora.iniciar();
 $('abrirPizarra').onclick = () => Pizarra.abrir();
 $('abrirCalc').onclick = () => Calculadora.abrir();
-document.addEventListener('keydown', e => { if(e.key !== 'Escape') return; if(!$('compartirModal').classList.contains('oculto')){ Compartir.cerrar(); return; } if(Pizarra.abierta && !e.defaultPrevented) Pizarra.cerrar(); });
+document.addEventListener('keydown', e => { if(e.key !== 'Escape') return; if(!$('compartirModal').classList.contains('oculto')){ Compartir.cerrar(); return; } if(!$('presModal').classList.contains('oculto')){ Presentaciones.cerrar(); return; } if(Pizarra.abierta && !e.defaultPrevented) Pizarra.cerrar(); });
 cargarSonido();
 iniciar();
 </script>
