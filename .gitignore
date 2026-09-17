@@ -1,0 +1,24 @@
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores y temporales
+.vscode/
+.idea/
+~$*
+*.tmp
+*.bak
+*.log
+
+# Documentos internos del proyecto (no publicar)
+privado/
+borradores/
+*.xlsx
+*.docx
+*.pptx
+*.zip
+
+# Credenciales
+.env
+*.pem
