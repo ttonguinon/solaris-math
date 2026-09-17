@@ -9,6 +9,7 @@
   <a href="https://ttonguinon.github.io/solaris-math/"><b>🚀 Abrir la app</b></a> ·
   <a href="https://ttonguinon.github.io/solaris-math/demo.html">Demostración</a> ·
   <a href="https://ttonguinon.github.io/solaris-math/presentacion.html">Presentación (2 min)</a> ·
+  <a href="https://ttonguinon.github.io/solaris-math/presentation.html">Presentation (EN, 2 min)</a> ·
   <a href="https://ttonguinon.github.io/solaris-math/intro.html">Intro video (EN)</a>
 </p>
 
@@ -48,6 +49,7 @@
 | `index.html` | La app completa |
 | `demo.html` | Versión de demostración (1.º a 3.º) |
 | `presentacion.html` | Presentación animada de 2 minutos, en español |
+| `presentation.html` | Presentación animada de 2 minutos, en inglés |
 | `intro.html` | Video introductorio de 1 minuto, en inglés |
 | `manifest.json`, `sw.js` | Instalación como app y funcionamiento sin conexión |
 | `icon-192.png`, `icon-512.png`, `icon-maskable-512.png` | Íconos de la app |
