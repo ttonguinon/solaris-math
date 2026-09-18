@@ -1,35 +1,36 @@
 {
+  "id": "/solaris-math/",
   "name": "Solaris Math · Matemáticas que despegan",
   "short_name": "Solaris Math",
   "description": "Matemáticas que despegan: aprende de 1.º a 11.º con lecciones, ejercicios, pizarra, calculadora y diplomas.",
   "lang": "es-CO",
+  "dir": "ltr",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#F4F7FF",
   "theme_color": "#0E1E40",
-  "categories": [
-    "education"
-  ],
+  "categories": ["education"],
   "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ],
+  "shortcuts": [
     {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
+      "name": "Demostración (1.º a 3.º)",
+      "short_name": "Demo",
+      "description": "Versión de demostración con 12 temas",
+      "url": "demo.html",
+      "icons": [{"src": "icon-192.png", "sizes": "192x192", "type": "image/png"}]
     },
     {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icon-maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "name": "Presentación (2 minutos)",
+      "short_name": "Presentación",
+      "description": "Recorrido animado por la app, con narración",
+      "url": "presentacion.html",
+      "icons": [{"src": "icon-192.png", "sizes": "192x192", "type": "image/png"}]
     }
   ]
 }
